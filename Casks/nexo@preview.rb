@@ -7,6 +7,36 @@ cask "nexo@preview" do
   desc "Events, attendance, volunteer coordination, and documents"
   homepage "https://github.com/jserranolaboy/nexo"
 
+  livecheck do
+    url :url
+    regex(/\ANexo-(\d+\.\d+\.\d+)-([1-9]\d*)-universal\.dmg\z/i)
+    strategy :github_releases do |json, regex|
+      next [] unless json.is_a?(Array)
+
+      json.flat_map do |release|
+        next [] unless release.is_a?(Hash)
+        next [] unless release["draft"] == false && release["prerelease"] == true
+        next [] if release["published_at"].to_s.empty?
+
+        tag = release["tag_name"].to_s.match(/\Av(\d+\.\d+\.\d+)-preview\.[1-9]\d*\z/)
+        next [] unless tag && release["assets"].is_a?(Array)
+
+        asset_prefix = "https://github.com/jserranolaboy/nexo/releases/download/#{release["tag_name"]}/"
+        release["assets"].filter_map do |asset|
+          next unless asset.is_a?(Hash) && asset["state"] == "uploaded"
+          next unless asset["size"].is_a?(Integer) && asset["size"].positive?
+
+          match = asset["name"].to_s.match(regex)
+          next unless match && match[1] == tag[1]
+
+          next unless asset["browser_download_url"] == "#{asset_prefix}#{asset["name"]}"
+
+          "#{match[1]},#{match[2]}"
+        end
+      end
+    end
+  end
+
   depends_on arch: [:arm64, :x86_64]
   depends_on macos: :sequoia
 

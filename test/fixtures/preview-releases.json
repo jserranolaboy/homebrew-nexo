@@ -1,0 +1,558 @@
+[
+  {
+    "name": "current published API metadata",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "build-info.json",
+            "state": "uploaded",
+            "size": 456,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/build-info.json"
+          },
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          },
+          {
+            "name": "SHA256SUMS",
+            "state": "uploaded",
+            "size": 176,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/SHA256SUMS"
+          }
+        ]
+      },
+      {
+        "tag_name": "v0.4.1-preview.1",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T13:49:53Z",
+        "assets": []
+      },
+      {
+        "tag_name": "v0.4.0-preview.1",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-21T21:31:12Z",
+        "assets": []
+      }
+    ],
+    "expected": [
+      "0.4.1,12"
+    ]
+  },
+  {
+    "name": "draft preview",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": true,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "ordinary stable release",
+    "input": [
+      {
+        "tag_name": "v0.4.1",
+        "draft": false,
+        "prerelease": false,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "preview-named release not marked prerelease",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": false,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "stable-named prerelease",
+    "input": [
+      {
+        "tag_name": "v0.4.1",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "unpublished preview",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": null,
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "empty publication time",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "source-only preview",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": []
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "missing assets",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z"
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "malformed assets",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": {
+          "name": "fake"
+        }
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "unsupported preview tag",
+    "input": [
+      {
+        "tag_name": "v0.4.1-beta.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-beta.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "zero preview ordinal",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.0",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.0/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "asset version disagrees with tag",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-9.9.9-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-9.9.9-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "starter asset not uploaded",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "starter",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "zero size asset",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 0,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "noninteger size asset",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": "2300000",
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "zero build",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-0-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-0-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "missing build",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "architecture-specific asset",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-arm64.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-arm64.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "extra filename suffix",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg.backup",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg.backup"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "download from another repository",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/elsewhere/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "download from a different tag",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.1/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": []
+  },
+  {
+    "name": "duplicate uploaded metadata",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          },
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": [
+      "0.4.1,12"
+    ]
+  },
+  {
+    "name": "future published preview",
+    "input": [
+      {
+        "tag_name": "v0.4.2-preview.3",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.2-13-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.2-preview.3/Nexo-0.4.2-13-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": [
+      "0.4.2,13"
+    ]
+  },
+  {
+    "name": "malformed top-level object",
+    "input": {
+      "message": "API error"
+    },
+    "expected": []
+  },
+  {
+    "name": "empty releases",
+    "input": [],
+    "expected": []
+  },
+  {
+    "name": "non-release entries",
+    "input": [
+      null,
+      4,
+      "release"
+    ],
+    "expected": []
+  },
+  {
+    "name": "multiple genuine preview versions",
+    "input": [
+      {
+        "tag_name": "v0.4.1-preview.2",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.1-12-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.1-preview.2/Nexo-0.4.1-12-universal.dmg"
+          }
+        ]
+      },
+      {
+        "tag_name": "v0.4.2-preview.3",
+        "draft": false,
+        "prerelease": true,
+        "published_at": "2026-10-24T16:22:34Z",
+        "assets": [
+          {
+            "name": "Nexo-0.4.2-13-universal.dmg",
+            "state": "uploaded",
+            "size": 2266997,
+            "browser_download_url": "https://github.com/jserranolaboy/nexo/releases/download/v0.4.2-preview.3/Nexo-0.4.2-13-universal.dmg"
+          }
+        ]
+      }
+    ],
+    "expected": [
+      "0.4.1,12",
+      "0.4.2,13"
+    ]
+  }
+]

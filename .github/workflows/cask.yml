@@ -53,6 +53,7 @@ jobs:
           shasum -a 256 "$(brew --repository)/Library/Homebrew/Gemfile.lock"
           mkdir -p "$HOMEBREW_CACHE" "$HOMEBREW_TEMP" "$XDG_CONFIG_HOME"
           ruby -c Casks/nexo@preview.rb
+          ruby test/livecheck_test.rb
           ruby -e 's = File.read(ARGV.fetch(0)); abort "Replace the placeholder with a verified SHA-256 before publishing" unless s.match?(/^  sha256 "[0-9a-f]{64}"$/)' Casks/nexo@preview.rb
 
       - name: Register only this checkout as the local tap
