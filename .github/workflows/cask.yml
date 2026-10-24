@@ -1,0 +1,94 @@
+name: Cask validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cask-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: ${{ matrix.check }}
+    runs-on: macos-15
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        check: ['Syntax, style and download integrity', 'Full new-cask audit']
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_ANALYTICS: "1"
+      NONINTERACTIVE: "1"
+      GIT_TERMINAL_PROMPT: "0"
+      NEXO_CASK: jserranolaboy/nexo/nexo@preview
+    steps:
+      - name: Check out the exact candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Require the hosted Mac and inspect installed tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_ACTIONS" = true
+          test "$RUNNER_ENVIRONMENT" = github-hosted
+          test "$RUNNER_OS" = macOS
+          export HOMEBREW_CACHE="$RUNNER_TEMP/nexo-brew-cache"
+          export HOMEBREW_TEMP="$RUNNER_TEMP/nexo-brew-temp"
+          export XDG_CONFIG_HOME="$RUNNER_TEMP/nexo-brew-config"
+          printf 'HOMEBREW_CACHE=%s\nHOMEBREW_TEMP=%s\nXDG_CONFIG_HOME=%s\n' "$HOMEBREW_CACHE" "$HOMEBREW_TEMP" "$XDG_CONFIG_HOME" >> "$GITHUB_ENV"
+          command -v brew
+          command -v ruby
+          brew --version
+          ruby --version
+          git -C "$(brew --repository)" rev-parse HEAD
+          shasum -a 256 "$(brew --repository)/Library/Homebrew/Gemfile.lock"
+          mkdir -p "$HOMEBREW_CACHE" "$HOMEBREW_TEMP" "$XDG_CONFIG_HOME"
+          ruby -c Casks/nexo@preview.rb
+          ruby -e 's = File.read(ARGV.fetch(0)); abort "Replace the placeholder with a verified SHA-256 before publishing" unless s.match?(/^  sha256 "[0-9a-f]{64}"$/)' Casks/nexo@preview.rb
+
+      - name: Register only this checkout as the local tap
+        shell: bash
+        run: |
+          set -euo pipefail
+          tap="$(brew --repository)/Library/Taps/jserranolaboy/homebrew-nexo"
+          test ! -e "$tap"
+          test ! -L "$tap"
+          brew tap jserranolaboy/nexo "$GITHUB_WORKSPACE"
+          test "$(git -C "$tap" rev-parse HEAD)" = "$GITHUB_SHA"
+          cmp Casks/nexo@preview.rb "$tap/Casks/nexo@preview.rb"
+
+      - name: Check cask style without modifying it
+        if: matrix.check == 'Syntax, style and download integrity'
+        shell: bash
+        run: brew style Casks/nexo@preview.rb
+
+      - name: Fetch and independently compare the pinned download digest
+        shell: bash
+        run: |
+          set -euo pipefail
+          brew fetch --cask "$NEXO_CASK"
+          download="$(brew --cache --cask "$NEXO_CASK")"
+          test -f "$download"
+          expected="$(ruby -e 's = File.read(ARGV.fetch(0)); m = s.match(/^  sha256 "([0-9a-f]{64})"$/); abort "Missing pinned checksum" unless m; puts m[1]' Casks/nexo@preview.rb)"
+          actual="$(shasum -a 256 "$download" | awk '{print $1}')"
+          test "$actual" = "$expected"
+          printf 'Verified download SHA-256: %s\n' "$actual"
+
+      - name: Run the complete new-cask audit without suppressing failures
+        if: matrix.check == 'Full new-cask audit'
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v gktool
+          download="$(brew --cache --cask "$NEXO_CASK")"
+          xattr -p com.apple.quarantine "$download" >/dev/null
+          brew audit --cask --new "$NEXO_CASK"
