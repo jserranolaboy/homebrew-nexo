@@ -15,21 +15,25 @@ cask "nexo@preview" do
 
       json.flat_map do |release|
         next [] unless release.is_a?(Hash)
-        next [] unless release["draft"] == false && release["prerelease"] == true
+        next [] if release["draft"] != false || release["prerelease"] != true
         next [] if release["published_at"].to_s.empty?
 
         tag = release["tag_name"].to_s.match(/\Av(\d+\.\d+\.\d+)-preview\.[1-9]\d*\z/)
-        next [] unless tag && release["assets"].is_a?(Array)
+        next [] unless tag
+        next [] unless release["assets"].is_a?(Array)
 
         asset_prefix = "https://github.com/jserranolaboy/nexo/releases/download/#{release["tag_name"]}/"
         release["assets"].filter_map do |asset|
-          next unless asset.is_a?(Hash) && asset["state"] == "uploaded"
-          next unless asset["size"].is_a?(Integer) && asset["size"].positive?
+          next unless asset.is_a?(Hash)
+          next if asset["state"] != "uploaded"
+          next unless asset["size"].is_a?(Integer)
+          next unless asset["size"].positive?
 
           match = asset["name"].to_s.match(regex)
-          next unless match && match[1] == tag[1]
+          next unless match
+          next if match[1] != tag[1]
 
-          next unless asset["browser_download_url"] == "#{asset_prefix}#{asset["name"]}"
+          next if asset["browser_download_url"] != "#{asset_prefix}#{asset["name"]}"
 
           "#{match[1]},#{match[2]}"
         end
